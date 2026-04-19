@@ -3,85 +3,237 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tech Seekers</title>
+  <title>Tech Seekers | Crafting Tomorrow</title>
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+    :root {
+      --primary: #00f5ff;
+      --accent: #7b2fff;
+    }
+
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #ffffff;
-      text-align: center;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a1f;
+      color: #e0e7ff;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Animated gradient background */
+    .bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, #0a0a1f 0%, #1a0b3d 50%, #0f172a 100%);
+      z-index: -2;
+    }
+
+    .bg::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 245, 255, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(123, 47, 255, 0.08) 0%, transparent 50%);
+      animation: pulse 15s ease infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
     }
 
     header {
-      padding: 60px 20px;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+      padding: 0 20px;
     }
 
-    h1 {
-      margin: 0;
-      font-size: 42px;
+    .header-content h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 700;
+      background: linear-gradient(90deg, #00f5ff, #7b2fff, #00f5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: gradientShift 6s linear infinite;
+      margin-bottom: 1rem;
+      letter-spacing: -2px;
     }
 
-    p {
-      font-size: 18px;
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .tagline {
+      font-size: 1.5rem;
       opacity: 0.9;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    .glow-button {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0a0a1f;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+    }
+
+    .glow-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 0 50px rgba(123, 47, 255, 0.7);
     }
 
     .container {
-      padding: 40px 20px;
+      padding: 100px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 60px;
+      background: linear-gradient(90deg, #a5b4fc, #c4d0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
     }
 
     .card {
-      background: #1e293b;
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 500px;
-      border-radius: 12px;
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(100, 100, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px 30px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    a {
-      color: #60a5fa;
-      text-decoration: none;
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(123,47,255,0.15) 0%, transparent 70%);
+      opacity: 0;
+      transition: all 0.5s;
+      z-index: -1;
+    }
+
+    .card:hover {
+      transform: translateY(-15px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 40px rgba(0, 245, 255, 0.15);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+
+    .card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 18px;
+      color: #a5b4fc;
+    }
+
+    .card p {
+      opacity: 0.85;
+      font-size: 1.05rem;
     }
 
     footer {
-      margin-top: 40px;
-      padding: 20px;
-      font-size: 14px;
+      text-align: center;
+      padding: 60px 20px 40px;
       opacity: 0.7;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .neon-text {
+      text-shadow: 0 0 15px rgba(0, 245, 255, 0.6);
     }
   </style>
 </head>
 <body>
+  <div class="bg"></div>
 
   <header>
-    <h1>Tech Seekers</h1>
-    <p>Building smart mobile apps & digital solutions</p>
+    <div class="header-content">
+      <h1 class="neon-text">TECH SEEKERS</h1>
+      <p class="tagline">We don't just build apps.<br>We craft digital experiences that shape the future.</p>
+      <a href="#contact" class="glow-button">Start a Project</a>
+    </div>
   </header>
 
   <div class="container">
-
-    <div class="card">
-      <h2>About Us</h2>
-      <p>Tech Seekers is a software development team focused on creating mobile apps, tools, and digital products for global users.</p>
+    <h2 class="section-title">Who We Are</h2>
+    <div class="cards">
+      <div class="card">
+        <h2>🔭 Visionaries</h2>
+        <p>A passionate team of developers, designers, and dreamers turning bold ideas into elegant mobile applications and digital solutions used by thousands worldwide.</p>
+      </div>
+      <div class="card">
+        <h2>🚀 Mission</h2>
+        <p>To create smart, beautiful, and intuitive technology that makes people's lives simpler, more exciting, and more connected.</p>
+      </div>
+      <div class="card">
+        <h2>🌌 Our Craft</h2>
+        <p>Mobile Apps • Web Platforms • UI/UX Design • Digital Products • AI-Powered Tools</p>
+      </div>
     </div>
+  </div>
 
-    <div class="card">
-      <h2>Contact</h2>
-      <p>Email: techseekersco@gmail.com</p>
+  <div class="container">
+    <h2 class="section-title">Let's Build Something Legendary</h2>
+    <div class="cards">
+      <div class="card" id="contact">
+        <h2>✉️ Get in Touch</h2>
+        <p><strong>Email:</strong> <a href="mailto:techseekersco@gmail.com" style="color:#60a5fa;">techseekersco@gmail.com</a></p>
+        <p style="margin-top: 20px; font-size: 1.1rem; opacity: 0.9;">We're always excited to hear about new ideas.</p>
+      </div>
     </div>
+  </div>
 
-    <div class="card">
-      <h2>App-Ads.txt</h2>
-      <p><a href="app-ads.txt">View app-ads.txt file</a></p>
+  <div class="container">
+    <div class="cards">
+      <div class="card">
+        <h2>📄 app-ads.txt</h2>
+        <p><a href="app-ads.txt" style="color: #00f5ff; font-weight: 600;">View app-ads.txt file →</a></p>
+      </div>
     </div>
-
   </div>
 
   <footer>
-    © 2026 Tech Seekers. All rights reserved.
+    © 2026 Tech Seekers • Made with 🔥 and future in mind
   </footer>
-
 </body>
 </html>
